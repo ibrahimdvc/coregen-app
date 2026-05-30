@@ -13,7 +13,6 @@ import { Analytics } from './pages/Analytics'
 import { Team } from './pages/Team'
 import { Admin } from './pages/Admin'
 import { Settings } from './pages/Settings'
-import { Placeholder } from './pages/Placeholder'
 
 const CRUMBS: Record<string, string[]> = {
   '/': ['COREGEN', 'Çalışma Alanı', 'Genel bakış'],
