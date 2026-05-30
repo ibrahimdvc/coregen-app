@@ -6,6 +6,13 @@ import { TweaksProvider } from './context/TweaksContext'
 import { Dashboard } from './pages/Dashboard'
 import { AIChat } from './pages/AIChat'
 import { Tasks } from './pages/Tasks'
+import { Meetings } from './pages/Meetings'
+import { Documents } from './pages/Documents'
+import { Announcements } from './pages/Announcements'
+import { Analytics } from './pages/Analytics'
+import { Team } from './pages/Team'
+import { Admin } from './pages/Admin'
+import { Settings } from './pages/Settings'
 import { Placeholder } from './pages/Placeholder'
 
 const CRUMBS: Record<string, string[]> = {
@@ -33,13 +40,13 @@ function Shell() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/ai" element={<AIChat />} />
           <Route path="/tasks" element={<Tasks />} />
-          <Route path="/meetings" element={<Placeholder title="Toplantılar" sub="AI özet, ajanda ve katılım takibi" />} />
-          <Route path="/team" element={<Placeholder title="Ekip Sohbeti" sub="Kanal ve birebir mesajlaşma + AI mention" />} />
-          <Route path="/docs" element={<Placeholder title="Dokümanlar" sub="Drive ile senkron belge merkezi" />} />
-          <Route path="/announce" element={<Placeholder title="Duyurular" sub="Kurumsal iletişim ve okunma takibi" />} />
-          <Route path="/analytics" element={<Placeholder title="Analitik" sub="Kullanım, AI, görev ve servis raporları" />} />
-          <Route path="/admin" element={<Placeholder title="Yönetim" sub="Kullanıcı, rol, Drive kaynakları ve sistem ayarları" />} />
-          <Route path="/settings" element={<Placeholder title="Ayarlar" sub="Profil, bildirim, dil" />} />
+          <Route path="/meetings" element={<Meetings />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/docs" element={<Documents />} />
+          <Route path="/announce" element={<Announcements />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
     </div>

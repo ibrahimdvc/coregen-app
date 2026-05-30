@@ -13,7 +13,20 @@ export type Task = {
   tag: string
 }
 
-export type Meeting = { id: number; time: string; dur: string; title: string; sub: string; rail: '' | 'g' | 'a' }
+export type Meeting = {
+  id: number
+  time: string
+  dur: string
+  title: string
+  sub: string
+  rail: '' | 'g' | 'a'
+  location?: string
+  mode?: 'Online' | 'Yerinde' | 'Hibrit'
+  participants?: { initials: string; name: string; role: string }[]
+  agenda?: string[]
+  aiSummary?: string
+  attachments?: { type: 'pdf' | 'docx' | 'xlsx'; title: string }[]
+}
 export type DocFile = { type: 'pdf' | 'docx' | 'xlsx'; title: string; sub: string; updated: string }
 export type Announcement = { tag: string; tagColor: 'blue' | 'green' | 'amber'; h: string; b: string; m: string }
 export type KPI = { label: string; value: string; delta: string; trend: 'up' | 'down'; sub: string }
@@ -39,10 +52,96 @@ export const tasks: Task[] = [
 ]
 
 export const meetings: Meeting[] = [
-  { id: 1, time: '09:30', dur: '30 dk', title: 'Pazartesi operasyon sync', sub: 'Teknik Operasyon · 6 kişi', rail: '' },
-  { id: 2, time: '11:00', dur: '45 dk', title: 'Roche servis ortağı görüşmesi', sub: 'Online · 4 kişi · Ajanda ekli', rail: 'g' },
-  { id: 3, time: '14:00', dur: '60 dk', title: 'Acıbadem Yönetim — sözleşme yenileme', sub: 'Yerinde · 3 kişi · Hazırlık notu hazır', rail: 'a' },
-  { id: 4, time: '16:30', dur: '20 dk', title: 'İhale komite ön değerlendirme', sub: 'Toplantı odası 2 · 5 kişi', rail: '' },
+  {
+    id: 1, time: '09:30', dur: '30 dk', title: 'Pazartesi operasyon sync',
+    sub: 'Teknik Operasyon · 6 kişi', rail: '',
+    location: 'Toplantı odası 1', mode: 'Hibrit',
+    participants: [
+      { initials: 'MY', name: 'Mehmet Yıldırım', role: 'Saha Servis Uzmanı' },
+      { initials: 'AT', name: 'Ayşe Taş', role: 'Operasyon Müdürü' },
+      { initials: 'EK', name: 'Erdem Kaya', role: 'Servis Mühendisi' },
+      { initials: 'SK', name: 'Selim Kara', role: 'Bölge Sorumlusu' },
+      { initials: 'ND', name: 'Nazlı Demir', role: 'Eğitim Uzmanı' },
+      { initials: 'HB', name: 'Hakan Bora', role: 'Lojistik' },
+    ],
+    agenda: [
+      'Geçen haftanın açık servis çağrılarının kapanış durumu',
+      'Bu haftaki yüksek öncelikli kalibrasyonlar',
+      'Reaktif stoğu ve depo durumu',
+      'Acıbadem sözleşme yenileme — kritik aksiyonlar',
+    ],
+    aiSummary: 'Geçen hafta 14 servis çağrısının 11\'i SLA içinde kapatıldı. Bu hafta 3 yüksek öncelikli kalibrasyon var. Reaktif stoğu Beylikdüzü deposunda %72 doluluk. Acıbadem yenilemesi için 14:00 toplantısı kritik.',
+    attachments: [
+      { type: 'xlsx', title: 'Haftalık servis çağrı raporu' },
+      { type: 'pdf', title: 'Reaktif stok durumu — 29 May' },
+    ],
+  },
+  {
+    id: 2, time: '11:00', dur: '45 dk', title: 'Roche servis ortağı görüşmesi',
+    sub: 'Online · 4 kişi · Ajanda ekli', rail: 'g',
+    location: 'Google Meet', mode: 'Online',
+    participants: [
+      { initials: 'MY', name: 'Mehmet Yıldırım', role: 'Saha Servis Uzmanı' },
+      { initials: 'AT', name: 'Ayşe Taş', role: 'Operasyon Müdürü' },
+      { initials: 'RC', name: 'Roche — Carla M.', role: 'Partner Manager' },
+      { initials: 'RT', name: 'Roche — Tomas L.', role: 'Field Service Lead' },
+    ],
+    agenda: [
+      'FSN-2025-04 bülteni dağıtımı — ilerleme',
+      'Q3 yedek parça tedarik planı',
+      'Saha mühendisi sertifikasyon yenileme',
+      'Q&A',
+    ],
+    aiSummary: 'Roche tarafıyla FSN-2025-04 dağıtım durumu paylaşılacak (12/47 müşteri tamamlandı). Q3 yedek parça siparişi 18 kalemde onay bekliyor. 3 mühendisin sertifikasyonu Ağustos\'ta yenilenecek.',
+    attachments: [
+      { type: 'pdf', title: 'Roche FSN-2025-04 Bülteni' },
+      { type: 'docx', title: 'Sertifikasyon takvimi 2025' },
+    ],
+  },
+  {
+    id: 3, time: '14:00', dur: '60 dk', title: 'Acıbadem Yönetim — sözleşme yenileme',
+    sub: 'Yerinde · 3 kişi · Hazırlık notu hazır', rail: 'a',
+    location: 'Acıbadem Bakırköy', mode: 'Yerinde',
+    participants: [
+      { initials: 'SK', name: 'Selim Kara', role: 'Bölge Sorumlusu' },
+      { initials: 'AT', name: 'Ayşe Taş', role: 'Operasyon Müdürü' },
+      { initials: 'AC', name: 'Acıbadem — Dr. Cem Y.', role: 'Lab Sorumlusu' },
+    ],
+    agenda: [
+      '2026 yıllık bakım kapsamı',
+      'Reaktif tedarik şartları — 7.3 madde revizyonu',
+      'SLA hedeflerinin gözden geçirilmesi',
+      'Yeni cihaz teklifleri (Cobas Pro)',
+    ],
+    aiSummary: 'Mevcut çerçeve sözleşmenin 7.3 maddesi (24 saat raporlama) güncellenmek isteniyor. Geçen yıl 247 servis çağrısının %94\'ü SLA içinde kapatıldı. Cobas Pro teklifi için ön çalışma hazır.',
+    attachments: [
+      { type: 'docx', title: 'Acıbadem Çerçeve Sözleşme 2024' },
+      { type: 'pdf', title: 'SLA performans raporu 2024' },
+      { type: 'xlsx', title: 'Cobas Pro teklif modeli' },
+    ],
+  },
+  {
+    id: 4, time: '16:30', dur: '20 dk', title: 'İhale komite ön değerlendirme',
+    sub: 'Toplantı odası 2 · 5 kişi', rail: '',
+    location: 'Toplantı odası 2', mode: 'Yerinde',
+    participants: [
+      { initials: 'EK', name: 'Erdem Kaya', role: 'Servis Mühendisi' },
+      { initials: 'SK', name: 'Selim Kara', role: 'Bölge Sorumlusu' },
+      { initials: 'AT', name: 'Ayşe Taş', role: 'Operasyon Müdürü' },
+      { initials: 'MY', name: 'Mehmet Yıldırım', role: 'Saha Servis Uzmanı' },
+      { initials: 'NB', name: 'Nazım Berk', role: 'Finans' },
+    ],
+    agenda: [
+      'Sağlık Bakanlığı 2024/3812 teknik şartname özeti',
+      'Fiyat stratejisi',
+      'Risk değerlendirmesi',
+    ],
+    aiSummary: 'Teklif kapsamı: Biyokimya + Hematoloji paketi, 14 kalem. Teknik şartnamede 2 kritik kalemde özel gereksinim var. Önerilen fiyat aralığı: 4.2M - 4.6M TL.',
+    attachments: [
+      { type: 'pdf', title: '2024/3812 Teknik Şartname' },
+      { type: 'xlsx', title: 'Maliyet analizi' },
+    ],
+  },
 ]
 
 export const documents: DocFile[] = [
